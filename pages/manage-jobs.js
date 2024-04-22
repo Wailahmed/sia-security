@@ -16,8 +16,8 @@ export default function ManageJobs() {
                 <div key={job.id} className={styles.job}>
                     <h2>{job.title}</h2>
                     <p>{job.description}</p>
-                    <Link href={`/edit-job/${job.id}`}>
-                        <a className={styles.edit}>Edit</a>
+                    <Link href={`/edit-job/${job.id}`} className={styles.edit}>
+                        Edit
                     </Link>
                     <button className={styles.delete}>Delete</button>
                 </div>
