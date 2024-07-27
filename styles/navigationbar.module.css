@@ -1,0 +1,47 @@
+.navbar {
+    background-color: #fff; /* Light background for the navbar */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+}
+
+.logo a {
+    text-decoration: none;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.navLinks {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.navLinks li {
+    padding: 0 15px;
+}
+
+.navLinks li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 1rem;
+    transition: color 0.3s;
+}
+
+.navLinks li a:hover {
+    color: #0070f3; /* A light blue hover state for links */
+}
+
+@media (max-width: 600px) {
+    .navLinks {
+        display: none; /* Hide links on small screens */
+    }
+
+    
+
+    /* Add styles for hamburger menu icon */
+}

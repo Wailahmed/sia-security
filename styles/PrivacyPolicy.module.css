@@ -1,0 +1,19 @@
+.container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    text-align: left;
+}
+
+.h1, .h2 {
+    color: #333;
+}
+
+.p, .li {
+    color: #666;
+    line-height: 1.6;
+}
+
+.ul {
+    padding-left: 20px;
+}

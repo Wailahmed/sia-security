@@ -2,7 +2,7 @@ const { MongoClient } = require("mongodb");
 
 const uri = process.env.MONGODB_URI;
 const dbName = process.env.MONGODB_DB;
-const colName = process.env.MONGODB_COL_JOBS;
+const colName = process.env.MONGODB_COL_REPORTS;
 
 export default function handler(req, res) {
     if (req.method === "GET") {

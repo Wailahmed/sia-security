@@ -1,0 +1,39 @@
+.container {
+    max-width: 1000px;
+    margin: auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.th, .td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+
+.th {
+    background-color: #f4f4f4;
+}
+
+.editButton, .deleteButton {
+    padding: 5px 10px;
+    margin-right: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.editButton {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.deleteButton {
+    background-color: #f44336;
+    color: white;
+}
