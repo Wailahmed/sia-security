@@ -18,10 +18,10 @@ const Login = () => {
                     <button type="submit" className={styles.loginButton}>Login</button>
                 </form>
                 <div className={styles.links}>
-                    <Link href="/auth/forgot-password" legacyBehavior>
+                    <Link href="/forgot-password" legacyBehavior>
                         <a className={styles.link}>Forgot Password?</a>
                     </Link>
-                    <Link href="/auth/register" legacyBehavior>
+                    <Link href="/register" legacyBehavior>
                         <a className={styles.link}>Create New Account to register</a>
                     </Link>
                 </div>
