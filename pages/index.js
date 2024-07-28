@@ -1,38 +1,38 @@
-import React from 'react';
 import Link from 'next/link';
-import styles from '../styles/Home.module.css';
-import SearchBar from '@/components/SearchBar';
-import { useRouter } from 'next/router';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser, faBuilding, faShieldAlt } from '@fortawesome/free-solid-svg-icons';
+import styles from '../styles/Overview.module.css';
 
-export default function Home({ jobs }) {
-  // const router= useRouter()
-  return (
-    <div className={styles.container}>
-      <h1>Job Listings</h1>
-      <section>
-        <SearchBar></SearchBar>
-      </section>
-      <ul>
-        {jobs.forEach(job => (
-          <li key={job.id}>
-            <Link legacyBehavior href={`/jobs/${job.id}`}>
-              <a>{job.title}</a>
-            </Link>
-          </li>
-        ))}
-      </ul>
-      {/* <button onClick={()=>{router.push("/login")}}> login</button> */}
-    </div>
-  );
-}
+const Overview = () => {
+    return (
+        <div className={styles.container}>
+            <header className={styles.header}>
+                <h1>Welcome to SecureConnect</h1>
+                <p>Your trusted platform for security job connections.</p>
+                <Link href="/login" legacyBehavior>
+                    <a className={styles.loginButton}>Log In</a>
+                </Link>
+            </header>
+            
+            <section className={styles.features}>
+                <div className={styles.feature}>
+                    <FontAwesomeIcon icon={faUser} className={styles.icon} />
+                    <h2>For Job Seekers</h2>
+                    <p>Create an account, search for jobs, and apply with ease. Get notified about new job postings and track your applications.</p>
+                </div>
+                <div className={styles.feature}>
+                    <FontAwesomeIcon icon={faBuilding} className={styles.icon} />
+                    <h2>For Employers</h2>
+                    <p>Post job listings, manage applications, and communicate with potential candidates. Build your company profile and attract top talent.</p>
+                </div>
+                <div className={styles.feature}>
+                    <FontAwesomeIcon icon={faShieldAlt} className={styles.icon} />
+                    <h2>For Admins</h2>
+                    <p>Manage users and job postings, ensuring a safe and professional environment for everyone. Monitor platform activity and maintain quality control.</p>
+                </div>
+            </section>
+        </div>
+    );
+};
 
-// Fetch jobs from your API or static file
-export async function getStaticProps() {
-  const res = await fetch('http://localhost:3000/api/jobs');
-  const jobs = await res.json();
-  return {
-    props: {
-      jobs,
-    },
-  };
-}
+export default Overview;

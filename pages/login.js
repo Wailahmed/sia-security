@@ -1,37 +1,33 @@
-import React, { useState } from 'react';
-import styles from '../styles/Auth.module.css';
+import Link from 'next/link';
+import styles from '../styles/Login.module.css';
 
-export default function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+const Login = () => {
+    return (
+        <div className={styles.container}>
+            <div className={styles.loginBox}>
+                <h1>Login to SecureConnect</h1>
+                <form>
+                    <div className={styles.inputGroup}>
+                        <label htmlFor="email">Email Address</label>
+                        <input type="email" id="email" required />
+                    </div>
+                    <div className={styles.inputGroup}>
+                        <label htmlFor="password">Password</label>
+                        <input type="password" id="password" required />
+                    </div>
+                    <button type="submit" className={styles.loginButton}>Login</button>
+                </form>
+                <div className={styles.links}>
+                    <Link href="/auth/forgot-password" legacyBehavior>
+                        <a className={styles.link}>Forgot Password?</a>
+                    </Link>
+                    <Link href="/auth/register" legacyBehavior>
+                        <a className={styles.link}>Create New Account to register</a>
+                    </Link>
+                </div>
+            </div>
+        </div>
+    );
+};
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    // Implement your login logic here
-  };
-
-  return (
-    <div className={styles.authContainer}>
-      <form onSubmit={handleSubmit}>
-        <h1>Login</h1>
-        <input
-          className={styles.input}
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <input
-          className={styles.input}
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <button className={styles.button} type="submit">Login</button>
-      </form>
-    </div>
-  );
-}
+export default Login;
