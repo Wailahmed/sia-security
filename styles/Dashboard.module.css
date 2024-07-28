@@ -1,121 +1,83 @@
 /* Dashboard.module.css */
 
-.dashboard {
-  font-family: Arial, sans-serif;
-  color: #333;
-  background-color: #f4f4f4;
-  min-height: 100vh;
-  padding: 0 10%;
-}
-
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #333;
-  padding: 1rem;
-  color: #fff;
-}
-
-.logo {
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-
-.logo a {
-  color: #fff;
-  text-decoration: none;
-}
-
-.navLinks {
-  list-style: none;
-  display: flex;
-  gap: 1rem;
-}
-
-.navLinks li {
-  display: inline;
-}
-
-.navLinks li a {
-  color: #fff;
-  text-decoration: none;
-  padding: 0.5rem;
-  transition: background-color 0.3s;
-}
-
-.navLinks li a:hover {
-  background-color: #575757;
-}
-
-.content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-  margin-top: 2rem;
-}
-
-.welcomeSection {
-  grid-column: span 2;
-  background-color: #fff;
-  padding: 1.5rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.welcomeSection h1 {
-  margin: 0;
-}
-
-.section {
-  background-color: #fff;
-  padding: 1.5rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.section h2 {
-  margin-top: 0;
-}
-
-.appliedJobs, .recommendations, .messages, .quickLinks {
-  background-color: #fff;
-  padding: 1.5rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.appliedJobs ul, .recommendations ul, .messages ul, .quickLinks ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.appliedJobs li, .recommendations li, .messages li, .quickLinks li {
-  margin: 0.5rem 0;
-}
-
-.quickLinks li a {
-  color: #0070f3;
-  text-decoration: none;
-}
-
-.quickLinks li a:hover {
-  text-decoration: underline;
-}
-
-.error {
-  color: red;
-  margin: 1rem 0;
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
   text-align: center;
 }
 
-@media (max-width: 768px) {
-  .content {
-      grid-template-columns: 1fr;
-  }
+.header {
+  margin-bottom: 40px;
+}
 
-  .welcomeSection {
-      grid-column: span 1;
-  }
+.header h1 {
+  font-size: 36px;
+  font-weight: bold;
+}
+
+.cardContainer {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.card {
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  padding: 20px;
+  width: 200px;
+  margin: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.icon {
+  font-size: 48px;
+  margin-bottom: 10px;
+  color: #007BFF;
+}
+
+.h2 {
+  font-size: 20px;
+  font-weight: normal;
+}
+
+.quickAccessContainer {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 40px;
+}
+
+.quickAccess {
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  padding: 20px;
+  width: 200px;
+  margin: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.quickAccess:hover {
+  transform: scale(1.05);
+}
+
+.quickAccess .icon {
+  font-size: 48px;
+  margin-bottom: 10px;
+  color: #28a745;
+}
+
+.quickAccess h2 {
+  font-size: 20px;
+  font-weight: normal;
 }
