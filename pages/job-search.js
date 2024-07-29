@@ -1,44 +1,49 @@
-import { useState } from 'react';
+import {useEffect, useState} from 'react';
 import styles from '../styles/JobSearch.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faMapMarkerAlt, faBriefcase, faBuilding } from '@fortawesome/free-solid-svg-icons';
-
-const mockJobData = [
-    {
-        id: 1,
-        title: 'Security Guard',
-        company: 'Secure Inc.',
-        location: 'New York, NY',
-        type: 'Full-time',
-        description: 'Ensure the safety and security of premises and personnel.',
-    },
-    {
-        id: 2,
-        title: 'Cyber Security Analyst',
-        company: 'CyberSafe Solutions',
-        location: 'San Francisco, CA',
-        type: 'Part-time',
-        description: 'Monitor and protect systems and networks from cyber threats.',
-    },
-    // Add more job listings as needed
-];
+import axios from "axios";
 
 const JobSearch = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [location, setLocation] = useState('');
     const [jobType, setJobType] = useState('');
-    const [filteredJobs, setFilteredJobs] = useState(mockJobData);
 
-    const handleSearch = () => {
-        const filtered = mockJobData.filter(job => {
-            return (
-                job.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
-                job.location.toLowerCase().includes(location.toLowerCase()) &&
-                job.type.toLowerCase().includes(jobType.toLowerCase())
-            );
-        });
-        setFilteredJobs(filtered);
-    };
+    const [jobs, setJobs] = useState([]);
+    const [filteredJobs, setFilteredJobs] = useState([]);
+
+    useEffect(() => {
+        const getJobs = async () => {
+            try {
+                const response = await fetch('/api/jobs');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch jobs');
+                }
+                const result = await response.json();
+                setJobs(result);
+            }
+            catch (error) {
+                console.error(error);
+            }
+        }
+
+        getJobs();
+    }, []);
+
+    if (jobs === null) {
+        return <p>Failed to retrieve jobs</p>
+    }
+
+    // const handleSearch = () => {
+    //     const filtered = jobs.filter(job => {
+    //         return (
+    //             job.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
+    //             job.location.toLowerCase().includes(location.toLowerCase()) &&
+    //             job.type.toLowerCase().includes(jobType.toLowerCase())
+    //         );
+    //     });
+    //     setFilteredJobs(jobs);
+    // };
 
     return (
         <div className={styles.container}>
@@ -81,12 +86,12 @@ const JobSearch = () => {
                         <option value="contract">Contract</option>
                     </select>
                 </div>
-                <button onClick={handleSearch} className={styles.searchButton}>
+                <button className={styles.searchButton}>
                     <FontAwesomeIcon icon={faSearch} /> Search
                 </button>
             </div>
             <div className={styles.jobList}>
-                {filteredJobs.map((job) => (
+                {jobs.map((job) => (
                     <div key={job.id} className={styles.jobCard}>
                         <h2>{job.title}</h2>
                         <p><FontAwesomeIcon icon={faBuilding} /> {job.company}</p>

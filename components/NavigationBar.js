@@ -1,7 +1,16 @@
 import Link from 'next/link';
 import styles from '../styles/navigationbar.module.css';
+import {logOutUser} from "@/store/current-user";
+import {useRouter} from "next/router";
 
 const Navbar = () => {
+    const router = useRouter();
+
+    const logOutAction = (e) => {
+        e.preventDefault();
+        router.push('/');
+    }
+
     return (
         <nav className={styles.navbar}>
             <div className={styles.logo}>
@@ -9,11 +18,9 @@ const Navbar = () => {
             </div>
             <ul className={styles.navLinks}>
                 <li><Link href="/">Home</Link></li>
-                <li><Link href="/about">About Us</Link></li>
-                <li><Link href="/contact">Contact</Link></li>
-                <li><Link href="/settings">Settings</Link></li>
-                <li><Link href="/login">Login</Link></li>
-                <li><Link href="/register">Register</Link></li>
+                <li><Link href="/dashboard">Dashboard</Link></li>
+                <li><Link href="/job-search">Job Search</Link></li>
+                <li><button onClick={logOutAction}>Log Out</button></li>
             </ul>
         </nav>
     );
