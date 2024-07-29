@@ -7,6 +7,8 @@
 .h1 {
     text-align: center;
     margin-bottom: 20px;
+    font-size: 32px;
+    color: #333;
 }
 
 .applicationList {
@@ -20,12 +22,20 @@
     border: 1px solid #ddd;
     border-radius: 8px;
     background-color: #f9f9f9;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.applicationCard:hover {
+    transform: scale(1.02);
 }
 
 .applicationCard h2 {
     margin: 0 0 10px;
+    color: #007BFF;
 }
 
 .applicationCard p {
     margin: 5px 0;
+    color: #555;
 }
