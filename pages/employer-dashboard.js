@@ -4,22 +4,7 @@ import styles from '../styles/EmployerDashboard.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faFileAlt, faUserTie, faBriefcase, faBuilding, faUser, faChartLine } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
-
-const mockJobData = [
-    {
-        id: 1,
-        title: 'Security Guard',
-        applicants: 5,
-        status: 'Active',
-    },
-    {
-        id: 2,
-        title: 'Cyber Security Analyst',
-        applicants: 3,
-        status: 'Active',
-    },
-    // Add more job listings as needed
-];
+import {getCurrentUser} from "@/store/current-user";
 
 const EmployerDashboard = () => {
     const [jobs, setJobs] = useState([]);
@@ -28,11 +13,14 @@ const EmployerDashboard = () => {
         // Fetch employer's job data from API
         const fetchJobs = async () => {
             try {
-                const response = await axios.get('/api/employer/jobs'); // Your API endpoint
-                setJobs(response.data);
+                const response = await fetch('/api/jobs');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch jobs');
+                }
+                const result = await response.json();
+                setJobs(result);
             } catch (error) {
                 console.error('Error fetching job data:', error);
-                setJobs(mockJobData); // Fallback to mock data for demonstration
             }
         };
 
@@ -43,7 +31,7 @@ const EmployerDashboard = () => {
         <div className={styles.container}>
             <h1>Employer Dashboard</h1>
             <div className={styles.welcome}>
-                <FontAwesomeIcon icon={faUser} /> Welcome, Employer!
+                <FontAwesomeIcon icon={faUser} /> Welcome, {getCurrentUser()?.firstName}!
             </div>
             <div className={styles.actions}>
                 <Link legacyBehavior href="/post-job">

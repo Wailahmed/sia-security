@@ -26,7 +26,61 @@ export default function handler(req, res) {
             }
         };
         getData();
-    } 
+    }
+    else if (req.method === "POST") {
+        const addData = async () => {
+            let client;
+            try {
+                client = new MongoClient(uri);
+                await client.connect();
+                const db = client.db(dbName);
+
+                console.log(req.body);
+
+                const {
+                    email, username, password,
+                    userType, firstName, lastName,
+                    telephone, dob, address, niNo,
+                    organisation, siaLicenseNo
+                } = req.body;
+
+                try {
+                    const result = await db.collection(`users`).insertOne(
+                        {
+                            email,
+                            username,
+                            password,
+                            userType,
+                            firstName,
+                            lastName,
+                            telephone,
+                            dob,
+                            address,
+                            niNo,
+                            organisation,
+                            siaLicenseNo
+                        }
+                    );
+
+                    if (result.insertedId === undefined) {
+                        return res.status(404).json({ message: 'Could not add user' });
+                    }
+                    res.status(200).json(result);
+                } catch (error) {
+                    res.status(500).json({ message: 'Failed to add user', error });
+                }
+            } catch (error) {
+                console.error("Failed to add user", error);
+                res.status(500).json({ message: "Failed to add user", error: err.message, another: "this is a test" });
+            }
+            finally {
+                if (client) {
+                    await client.close();
+                }
+            }
+        }
+        addData();
+    }
 /*     else if (req.method === "DELETE") {
         const removeData = async () => {
             let client;

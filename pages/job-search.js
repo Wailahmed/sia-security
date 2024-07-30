@@ -1,49 +1,60 @@
-import {useEffect, useState} from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 import styles from '../styles/JobSearch.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faMapMarkerAlt, faBriefcase, faBuilding } from '@fortawesome/free-solid-svg-icons';
-import axios from "axios";
 
 const JobSearch = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [location, setLocation] = useState('');
     const [jobType, setJobType] = useState('');
-
     const [jobs, setJobs] = useState([]);
     const [filteredJobs, setFilteredJobs] = useState([]);
 
     useEffect(() => {
-        const getJobs = async () => {
+        // Fetch job data from API
+        const fetchJobs = async () => {
             try {
-                const response = await fetch('/api/jobs');
-                if (!response.ok) {
-                    throw new Error('Failed to fetch jobs');
-                }
-                const result = await response.json();
-                setJobs(result);
+                const response = await axios.get('/api/jobs'); // Your API endpoint
+                setJobs(response.data);
+                setFilteredJobs(response.data);
+            } catch (error) {
+                console.error('Error fetching job data:', error);
             }
-            catch (error) {
-                console.error(error);
-            }
-        }
+        };
 
-        getJobs();
+        fetchJobs();
     }, []);
 
-    if (jobs === null) {
-        return <p>Failed to retrieve jobs</p>
-    }
+    useEffect(() => {
+        handleSearch(searchTerm, location, jobType);
+    }, [searchTerm, location, jobType]);
 
-    // const handleSearch = () => {
-    //     const filtered = jobs.filter(job => {
-    //         return (
-    //             job.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
-    //             job.location.toLowerCase().includes(location.toLowerCase()) &&
-    //             job.type.toLowerCase().includes(jobType.toLowerCase())
-    //         );
-    //     });
-    //     setFilteredJobs(jobs);
-    // };
+    const handleSearch = (term, loc, type) => {
+        const filtered = jobs.filter(job => {
+            return (
+                job.title.toLowerCase().includes(term.toLowerCase()) &&
+                job.location.toLowerCase().includes(loc.toLowerCase()) &&
+                (type === '' || job.jobtype?.toLowerCase() === type.toLowerCase())
+            );
+        });
+        setFilteredJobs(filtered);
+    };
+
+    const handleTitleChange = (e) => {
+        const value = e.target.value;
+        setSearchTerm(value);
+    };
+
+    const handleLocationChange = (e) => {
+        const value = e.target.value;
+        setLocation(value);
+    };
+
+    const handleJobTypeChange = (e) => {
+        const value = e.target.value;
+        setJobType(value);
+    };
 
     return (
         <div className={styles.container}>
@@ -57,7 +68,7 @@ const JobSearch = () => {
                         type="text"
                         id="searchTerm"
                         value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
+                        onChange={handleTitleChange}
                     />
                 </div>
                 <div className={styles.searchGroup}>
@@ -68,7 +79,7 @@ const JobSearch = () => {
                         type="text"
                         id="location"
                         value={location}
-                        onChange={(e) => setLocation(e.target.value)}
+                        onChange={handleLocationChange}
                     />
                 </div>
                 <div className={styles.searchGroup}>
@@ -78,7 +89,7 @@ const JobSearch = () => {
                     <select
                         id="jobType"
                         value={jobType}
-                        onChange={(e) => setJobType(e.target.value)}
+                        onChange={handleJobTypeChange}
                     >
                         <option value="">All</option>
                         <option value="full-time">Full-time</option>
@@ -86,17 +97,14 @@ const JobSearch = () => {
                         <option value="contract">Contract</option>
                     </select>
                 </div>
-                <button className={styles.searchButton}>
-                    <FontAwesomeIcon icon={faSearch} /> Search
-                </button>
             </div>
             <div className={styles.jobList}>
-                {jobs.map((job) => (
-                    <div key={job.id} className={styles.jobCard}>
+                {filteredJobs.map((job) => (
+                    <div key={job._id} className={styles.jobCard}>
                         <h2>{job.title}</h2>
                         <p><FontAwesomeIcon icon={faBuilding} /> {job.company}</p>
                         <p><FontAwesomeIcon icon={faMapMarkerAlt} /> {job.location}</p>
-                        <p><FontAwesomeIcon icon={faBriefcase} /> {job.type}</p>
+                        <p><FontAwesomeIcon icon={faBriefcase} /> {job.jobtype}</p>
                         <p>{job.description}</p>
                     </div>
                 ))}

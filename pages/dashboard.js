@@ -4,21 +4,9 @@ import {getCurrentUser} from "@/store/current-user";
 import {useState} from "react";
 
 const Dashboard = () => {
-    let content = <p>Not logged in </p>;
 
     if (getCurrentUser() === null) {
         return <p>You are not logged in.</p>
-    }
-
-    const employerCards = () => {
-        return (
-            <>
-                <p></p>
-                <div className={styles.cardContainer}>
-                    <p>Employee</p>
-                </div>
-            </>
-            )
     }
 
     const jobSeekerCards = () => {
@@ -67,21 +55,12 @@ const Dashboard = () => {
         </>)
     }
 
-    if (getCurrentUser().userType === 'employer') {
-        content = (employerCards())
-    }
-    else {
-        content = (jobSeekerCards())
-    }
-
-    if (content === null) { return <p>Not logged in </p>}
-
     return (
         <div className={styles.container}>
             <div className={styles.header}>
                 <h1>Welcome, {getCurrentUser()?.firstName}</h1>
             </div>
-            <>{content}</>
+            <>{jobSeekerCards()}</>
         </div>
     );
 };

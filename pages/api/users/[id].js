@@ -99,18 +99,6 @@ export default function handler(req, res) {
         };
         putData();
     }
-    else if (method === "POST") {
-        const addData = async () => {
-            let client;
-            try {
-                client = new MongoClient(uri);
-                await client.connect();
-                const db = client.db(dbName);
-
-
-            }
-        }
-    }
     else {
         res.setHeader("Allow", ["GET"]);
         res.status(405).end("Method Not Allowed");

@@ -3,7 +3,7 @@ import styles from '../styles/Login.module.css';
 import { useRouter } from 'next/router';
 import {useEffect, useState} from "react";
 import axios from "axios";
-import {setCurrentUser} from "@/store/current-user";
+import {getCurrentUser, setCurrentUser} from "@/store/current-user";
 
 const Login = () => {
   const router = useRouter();
@@ -39,7 +39,13 @@ const Login = () => {
     for (let user of users) {
       if (user.email === email && user.password === password) {
         setCurrentUser(Object.assign({}, user));
-        router.push('/dashboard');
+        if (getCurrentUser().userType === "employer") {
+          router.push('/employer-dashboard');
+        }
+        else {
+          router.push('/dashboard');
+        }
+
         return;
       }
     }
